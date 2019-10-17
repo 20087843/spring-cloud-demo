@@ -1,8 +1,10 @@
 package cn.pri.smilly.userservice.controller;
 
-import org.springframework.beans.factory.annotation.Value;
+import cn.pri.smilly.userservice.bean.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
@@ -11,17 +13,19 @@ import java.security.Principal;
 @RefreshScope
 public class UserController {
 
-    @Value("user.name")
-    private String name;
+    @Autowired
+    private User user;
 
     @GetMapping("/current")
+    @ResponseBody
     public Principal getPrincipal(Principal principal) {
         return principal;
     }
 
-    @GetMapping("/name")
-    public String getUserName(){
-        return name;
+    @GetMapping("/info")
+    @ResponseBody
+    public User getUserInfo() {
+        return user;
     }
 
 }
