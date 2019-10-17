@@ -3,16 +3,16 @@ spring:
     name: user-service
 
   cloud:
-    config: # ´ÓÅäÖÃÖĞĞÄÀ­È¡ÅäÖÃÎÄ¼ş
+    config: # ä»é…ç½®ä¸­å¿ƒæ‹‰å–é…ç½®æ–‡ä»¶
       uri: http://localhost:8888/
       profile: dev
       label: master
       discovery:
         enable: true
-        service-id: config-server #Config Server¶ËµÄ·şÎñÃû×Ö£¬²»ÄÜÏ¹Ğ´
+        service-id: config-server #Config Serverç«¯çš„æœåŠ¡åå­—ï¼Œä¸èƒ½çå†™
 
-  rabbitmq:
+  rabbitmq: # é…ç½®æ¶ˆæ¯æ€»çº¿
     host: localhost
-    port: 15672
+    port: 5672
     username: guest
     password: guest
