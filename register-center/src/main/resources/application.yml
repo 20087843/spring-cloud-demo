@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: dev
+
+server:
+  port: 8860
+
+# 注册中心配置
+eureka:
+  instance:
+    hostname: register-center
+    prefer-ip-address: true
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defualtZone: http:localhost:${server.port}/eureka/
+  server:
+    enable-self-preservation: false

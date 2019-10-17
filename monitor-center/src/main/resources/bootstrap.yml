@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: monitor-center
+
+  cloud:
+    config: # 从配置中心拉取配置文件
+      uri: http://localhost:8888/
+      profile: dev
+      label: master
+      discovery:
+        enable: true
+        service-id: config-server #Config Server端的服务名字，不能瞎写
+
+  rabbitmq:
+    host: localhost
+    port: 15672
+    username: guest
+    password: guest

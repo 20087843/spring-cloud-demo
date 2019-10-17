@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: dev
+
+eureka:
+  instance:
+    hostname: register-center
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://user:${REGISTRY_SERVER_PASSWORD:password}@register-serv
+
+user:
+  name: Smilly
+  age: 26
+  sex: male
