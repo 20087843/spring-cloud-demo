@@ -1,4 +1,4 @@
-Spring Cloud 实例程序()
+Spring Cloud 实例程序(Greenwich.SR3)
 ===
 
 #### 项目说明

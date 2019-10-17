@@ -4,6 +4,7 @@ spring:
 
   cloud:
     config: # 从配置中心拉取配置文件
+      enabled: true
       uri: http://localhost:8888/
       profile: dev
       label: master

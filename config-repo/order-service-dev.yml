@@ -13,4 +13,4 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://user:${REGISTRY_SERVER_PASSWORD:password}@register-server:8860/eureka/
+      defaultZone: http://localhost:8860/eureka/

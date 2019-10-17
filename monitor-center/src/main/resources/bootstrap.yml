@@ -3,10 +3,11 @@ spring:
     name: monitor-center
 
   cloud:
-    config: # 从配置中心拉取配置文件
-      uri: http://localhost:8888/
+    config: #从配置中心拉取配置文件，远程文件名格式 {app-name}-{profile}.yml
+      enabled: true #启用config配置
+      uri: http://localhost:8888/ #配置中心地址
       profile: dev
-      label: master
+      label: master #从 master 分支拉取
       discovery:
         enable: true
         service-id: config-server #Config Server端的服务名字，不能瞎写
