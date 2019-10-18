@@ -1,3 +1,6 @@
 /.idea/
 **/target/
 **/*.iml
+/common-service/src/main/resources/application.yml
+/common-service/src/main/java/cn/pri/smilly/commonservice/CommonServiceApplication.java
+/common-service/src/test/java/cn/pri/smilly/commonservice/CommonServiceApplicationTests.java

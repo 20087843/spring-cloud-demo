@@ -4,12 +4,12 @@ import cn.pri.smilly.commonservice.bean.BaseBean;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
-public class User extends BaseBean {
+public class Order extends BaseBean {
     private String id;
-    private String identity;
-    private String name;
-    private int age;
-    private String sex;
+    private User user;
+    private List<Goods> goodsList;
 }

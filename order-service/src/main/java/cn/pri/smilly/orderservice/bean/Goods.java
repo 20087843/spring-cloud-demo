@@ -6,10 +6,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class User extends BaseBean {
+public class Goods extends BaseBean {
     private String id;
-    private String identity;
     private String name;
-    private int age;
-    private String sex;
+    private int qty;
+    private String unit;
+    private double wgt;
 }
