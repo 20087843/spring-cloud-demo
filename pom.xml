@@ -20,31 +20,64 @@
         <module>config-server</module>
         <module>register-center</module>
         <module>monitor-center</module>
-        <module>user-service</module>
-        <module>order-service</module>
+        <module>zipkin-server</module>
+        <module>gateway-service</module>
+        <module>auth-service</module>
+        <module>custom-services</module>
     </modules>
 
     <properties>
         <java.version>11</java.version>
         <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
         <spring-boot-admin.version>2.1.5</spring-boot-admin.version>
-        <lombok.version>1.18.8</lombok.version>
+        <security.oauth.version>2.3.6.RELEASE</security.oauth.version>
+        <zipkin.version>2.12.2</zipkin.version>
     </properties>
 
     <dependencies>
-        <dependency>
+        <dependency><!--eureka 客户端-->
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <dependency><!--监控-->
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-
+        <dependency><!--监控客户端-->
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${spring-boot-admin.version}</version>
+        </dependency>
+        <dependency><!--配置中心客户端-->
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-client</artifactId>
+        </dependency>
+        <dependency><!--配置中心失败重试-->
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+        </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency><!--服务链路追踪-->
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
+        <dependency><!--断路器依赖-->
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+        <dependency><!--消息总线-->
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
+        </dependency>
+        <dependency><!--Lombok-->
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
-
-        <dependency>
+        <dependency><!--test-->
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -53,7 +86,7 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
+            <dependency><!--监控-->
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-dependencies</artifactId>
                 <version>${spring-boot-admin.version}</version>
@@ -67,10 +100,33 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!--稳定版本，替代spring security bom内置-->
+            <dependency>
+                <groupId>org.springframework.security.oauth</groupId>
+                <artifactId>spring-security-oauth2</artifactId>
+                <version>${security.oauth.version}</version>
+            </dependency>
+            <dependency><!--zipkin server-->
+                <groupId>io.zipkin.java</groupId>
+                <artifactId>zipkin-server</artifactId>
+                <version>${zipkin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.zipkin.java</groupId>
+                <artifactId>zipkin-autoconfigure-ui</artifactId>
+                <version>${zipkin.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
+        <finalName>${project.name}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <pluginManagement>
             <plugins>
                 <plugin>

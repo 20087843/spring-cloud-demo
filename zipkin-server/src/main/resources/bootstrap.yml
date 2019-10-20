@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: zipkin-server
+
+  cloud:
+    config: # 从配置中心拉取配置文件
+      enabled: true
+      uri: http://localhost:8888/
+      profile: dev
+      label: master
+      discovery:
+        enable: true
+        service-id: config-server #Config Server端的服务名字，不能瞎写
+
+      retry: # 配置中心失败重试
+        initial-interval: 2000 #最初重试间隔
+        max-interval: 10000 #最长重试间隔
+        multiplier: 1.2 #每次重试失败后，重试间隔所增加的倍数
+        max-attempts: 10 #最多重试次数
+
+  rabbitmq: # 配置消息总线
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+

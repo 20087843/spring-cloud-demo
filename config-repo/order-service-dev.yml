@@ -18,6 +18,18 @@ spring:
       allow_unquoted_control_chars: true #允许出现特殊字符和转义符
       allow_single_quotes: true #允许出现单引号
 
+
+feign:  #feign的配置
+  httpclient:
+    connection-timeout: 5000  #连接超时配置
+    enabled: true
+  compression: # 请求响应数据压缩配置
+    request:
+      enabled: true
+      min-request-size: 1024 # 请求数据压缩阈值
+    response:
+      enabled: true
+
 eureka:
   instance:
     hostname: register-center
