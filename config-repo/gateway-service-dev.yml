@@ -5,6 +5,14 @@ spring:
   profiles:
     active: dev
 
+  cloud:
+    gateway:
+      enabled: true
+      discovery:
+        locator:
+          enabled: true  # 通过注册中心自动根据服务ID建立路由
+          lower-case-service-id: true
+
 # 注册服务到注册中心
 eureka:
   instance:
@@ -13,3 +21,9 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8860/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway

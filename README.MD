@@ -65,7 +65,7 @@ Spring Cloud 实例程序(Greenwich.SR3)
 2. [changhe626/micro-service](https://github.com/changhe626/micro-service)
 3. [zhangxd1989/spring-boot-cloud](https://github.com/zhangxd1989/spring-boot-cloud)
 4. [spring-cloud-samples/brewery](https://github.com/spring-cloud-samples/brewery)
-
+5. [hope-for/hope-cloud](https://github.com/hope-for/hope-cloud)
 
 
 

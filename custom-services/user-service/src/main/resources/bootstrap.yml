@@ -27,9 +27,13 @@ spring:
   zipkin:
     discovery-client-enabled: true
     service:
-      name: zipkin-server
+      name: ${spring.application.name}
     sender:
       type: rabbit
+    locator:
+      discovery:
+        enabled: true
+    base-url: http://localhost:8850
 
   sleuth:
     enabled: true
