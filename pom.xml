@@ -32,6 +32,7 @@
         <spring-boot-admin.version>2.1.5</spring-boot-admin.version>
         <security.oauth.version>2.3.6.RELEASE</security.oauth.version>
         <zipkin.version>2.12.2</zipkin.version>
+        <zipkin.es.version>2.8.3</zipkin.es.version>
     </properties>
 
     <dependencies>
@@ -55,10 +56,6 @@
         <dependency><!--配置中心失败重试-->
             <groupId>org.springframework.retry</groupId>
             <artifactId>spring-retry</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
         <dependency><!--服务链路追踪-->
             <groupId>org.springframework.cloud</groupId>
@@ -100,8 +97,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!--稳定版本，替代spring security bom内置-->
-            <dependency>
+            <dependency><!-- hystix 可视化 -->
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-netflix-hystrix-dashboard</artifactId>
+            </dependency>
+            <dependency><!--稳定版本，替代spring security bom内置-->
                 <groupId>org.springframework.security.oauth</groupId>
                 <artifactId>spring-security-oauth2</artifactId>
                 <version>${security.oauth.version}</version>
@@ -115,6 +115,16 @@
                 <groupId>io.zipkin.java</groupId>
                 <artifactId>zipkin-autoconfigure-ui</artifactId>
                 <version>${zipkin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.zipkin.java</groupId>
+                <artifactId>zipkin-autoconfigure-collector-rabbitmq</artifactId>
+                <version>${zipkin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.zipkin.java</groupId>
+                <artifactId>zipkin-autoconfigure-storage-elasticsearch-http</artifactId>
+                <version>${zipkin.es.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

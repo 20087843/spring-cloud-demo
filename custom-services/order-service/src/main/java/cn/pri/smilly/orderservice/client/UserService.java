@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@FeignClient(name = "user-service", fallback = UserServiceFallback.class)
+@FeignClient(name = "gateway-service", fallback = UserServiceFallback.class)
 public interface UserService {
 
     @GetMapping("/user-service/user/info")

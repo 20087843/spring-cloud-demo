@@ -11,12 +11,16 @@ spring:
       discovery:
         enable: true
         service-id: config-server #Config Server端的服务名字，不能瞎写
-
       retry: # 配置中心失败重试
         initial-interval: 2000 #最初重试间隔
         max-interval: 10000 #最长重试间隔
         multiplier: 1.2 #每次重试失败后，重试间隔所增加的倍数
         max-attempts: 10 #最多重试次数
+
+    bus:
+      enabled: true
+      trace:
+        enabled: true
 
   rabbitmq: # 配置消息总线
     host: localhost
@@ -24,8 +28,29 @@ spring:
     username: guest
     password: guest
 
+zipkin: # es 配置
+  storage:
+    type: elasticsearch
+    elasticsearch:
+      hosts: http://localhost:9200
+      cluster: elasticsearch
+      index: zipkin
+      index-shards: 1
+      index-replicas: 1
+  collector: # rabbitmq collector 配置
+    rabbitmq:
+      enabled: true
+      virtual-host: localhost:5672
+      username: guest
+      password: guest
+      queue: zipkin
+
 management:
   metrics:
     web:
       server:
         auto-time-requests: false
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

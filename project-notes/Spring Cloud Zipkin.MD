@@ -31,6 +31,8 @@ Zipkin分为两端，一个是Zipkin服务端，一个是Zipkin客户端，客�
 ### 参考资料
 1. [spring cloud分布式整合zipkin的链路跟踪](https://www.cnblogs.com/itgaofei/p/9353054.html)
 2. [springcloud+zipkin实现链路监控](https://blog.csdn.net/yangchuanan/article/details/83549345)
+3. [Zipkin和微服务链路跟踪](https://cloud.tencent.com/developer/article/1082821)
+4. [服务链路追踪（sleuth+zipkin）](https://www.cnblogs.com/lifeone/p/9040336.html)
 
 ### 参考项目
 1. [pig-zipkin](https://gitee.com/log4j/pig/tree/master/pig-visual/pig-zipkin)
