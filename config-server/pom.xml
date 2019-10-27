@@ -11,7 +11,7 @@
 
     <groupId>cn.pri.smilly</groupId>
     <artifactId>config-server</artifactId>
-    <version>${project.parent.version}</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <description>Demo project for Spring Cloud</description>
     <packaging>jar</packaging>

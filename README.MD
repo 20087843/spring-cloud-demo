@@ -24,7 +24,7 @@ a demo of spring cloud with version Greenwich.SR3, include config, registry, mon
     - eureka client
     - config client
         - cloud bus:rabitmq
-5. gateway-service(8810) 应用网关服务
+5. gateway-service/zuul-service(8810) 应用网关服务
 6. auth-service(8820) 安全权限服务
 7. custom-services 应用服务
     1. common-service 应用服务通用组件

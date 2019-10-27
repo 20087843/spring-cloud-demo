@@ -5,12 +5,12 @@
 
     <parent>
         <groupId>cn.pri.smilly</groupId>
-        <artifactId>spring-cloud-demo</artifactId>
+        <artifactId>gateway-services</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <groupId>cn.pri.smilly</groupId>
-    <artifactId>zuul-service</artifactId>
+    <artifactId>gateway-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <description>Demo project for Spring Cloud</description>
@@ -19,19 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
-        </dependency>
-        <dependency><!--服务链路追踪-->
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-zipkin</artifactId>
-        </dependency>
-        <dependency><!--断路器依赖-->
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-        </dependency>
-        <dependency><!-- 断路器监控 -->
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-netflix-hystrix-dashboard</artifactId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
     </dependencies>
 

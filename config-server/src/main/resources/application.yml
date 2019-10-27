@@ -13,8 +13,6 @@ spring:
           search-paths: config-repo # 文件基路径
           force-pull: true #强制拉取
           delete-untracked-branches: true #删除无关分支
-          username: 20087843@163.com
-          password: 54136314@ln
 
   rabbitmq: # 消息总线配置
     host: localhost

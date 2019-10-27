@@ -26,13 +26,6 @@ spring:
       client:
         enabled: true
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-      base-path: /
-
 # 注册服务到注册中心
 eureka:
   instance:
@@ -41,3 +34,15 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8860/eureka/
+
+ribbon:
+  eureka:
+    enabled: true
+
+management: # 监控接口暴露
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: /
+  context-path: /

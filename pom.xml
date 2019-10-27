@@ -20,8 +20,8 @@
         <module>config-server</module>
         <module>register-center</module>
         <module>monitor-center</module>
+        <module>gateway-services</module>
         <module>zipkin-server</module>
-        <module>gateway-service</module>
         <module>auth-service</module>
         <module>custom-services</module>
     </modules>
@@ -56,10 +56,6 @@
         <dependency><!--eureka 客户端-->
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
-        <dependency><!--监控-->
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency><!--监控客户端-->
             <groupId>de.codecentric</groupId>

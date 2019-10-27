@@ -28,10 +28,3 @@ spring:
     port: 5672
     username: guest
     password: guest
-
-zuul:
-  ignored-services: '*'
-  routes:
-    service-provider:
-      path: /service/**
-      serviceId: register-center
