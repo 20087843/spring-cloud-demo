@@ -10,24 +10,28 @@
     </parent>
 
     <groupId>cn.pri.smilly</groupId>
-    <artifactId>monitor-center</artifactId>
-    <version>${project.parent.version}</version>
+    <artifactId>zuul-service</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <description>Demo project for Spring Cloud</description>
     <packaging>jar</packaging>
 
     <dependencies>
-        <dependency><!-- 服务监控 -->
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-server</artifactId>
-        </dependency>
-        <dependency><!--配置中心客户端-->
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-client</artifactId>
+            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
         </dependency>
-        <dependency><!--配置中心失败重试-->
-            <groupId>org.springframework.retry</groupId>
-            <artifactId>spring-retry</artifactId>
+        <dependency><!--服务链路追踪-->
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
+        <dependency><!--断路器依赖-->
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+        <dependency><!-- 断路器监控 -->
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-netflix-hystrix-dashboard</artifactId>
         </dependency>
     </dependencies>
 

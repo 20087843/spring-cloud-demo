@@ -2,16 +2,19 @@ server:
   port: 8888
 
 spring:
-  active: dev # 开发模式
+  profiles:
+    active: dev
 
   cloud:
     config:
       server:
         git: # 配置中心文件位置
           uri: https://github.com/20087843/spring-cloud-demo
-          search-paths: config-repo #
+          search-paths: config-repo # 文件基路径
           force-pull: true #强制拉取
           delete-untracked-branches: true #删除无关分支
+          username: 20087843@163.com
+          password: 54136314@ln
 
   rabbitmq: # 消息总线配置
     host: localhost

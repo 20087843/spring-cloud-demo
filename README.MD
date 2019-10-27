@@ -51,7 +51,7 @@ a demo of spring cloud with version Greenwich.SR3, include config, registry, mon
     - config-server
     - monitor-center
     - zipkin-server
-    - gateway-service
+    - gateway-service (zuul-service)
     - user-service
     - order-service
 3. 通过网关访问 http://localhost:8810/order-service/order/user

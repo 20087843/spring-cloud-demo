@@ -1,0 +1,21 @@
+server:
+  port: 8820
+
+spring:
+  profiles:
+    active: dev
+
+# 注册服务到注册中心
+eureka:
+  instance:
+    hostname: register-center
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8860/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' # 公开 web 端点
