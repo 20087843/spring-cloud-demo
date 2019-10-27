@@ -2,7 +2,7 @@ Spring Cloud 实例程序(Greenwich.SR3)
 ===
 
 #### 项目说明
-
+a demo of spring cloud with version Greenwich.SR3, include config, registry, monitor, gateway, zipkin, auth.
 
 #### 项目结构
 1. config-server(8888) 配置中心，集成了消息总线自动刷新 client 配置
@@ -54,6 +54,17 @@ Spring Cloud 实例程序(Greenwich.SR3)
     - gateway-service
     - user-service
     - order-service
+3. 通过网关访问 http://localhost:8810/order-service/order/user
+    - **config-server** http://localhost:8888/user-service-dev.yml
+    ![config-server](project-notes/resources/config-server-show.png)
+    - **register-center** http://localhost:8860/
+    ![register-center](project-notes/resources/register-center-show.jpg)
+    - **monitor-center** http://localhost:8870/#/wallboard
+    ![monitor-center](project-notes/resources/monitor-center-show.png)
+    - **zipkin-sever** http://localhost:8850/zipkin
+    ![zipkin-sever](project-notes/resources/zipkin-server-show.png)
+    - **rabbitmq** http://localhost:15672
+    ![rabbitmq](project-notes/resources/rabbitmq-show.png)
 
 2. 项目架构
 ![Architecture](project-notes/resources/architecture.png)
