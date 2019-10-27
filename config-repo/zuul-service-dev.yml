@@ -26,8 +26,7 @@ spring:
       client:
         enabled: true
 
-# 注册服务到注册中心
-eureka:
+eureka: # 注册服务到注册中心
   instance:
     hostname: register-center
     prefer-ip-address: true
@@ -45,4 +44,3 @@ management: # 监控接口暴露
       exposure:
         include: '*'
       base-path: /
-  context-path: /
