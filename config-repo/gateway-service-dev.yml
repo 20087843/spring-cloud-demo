@@ -38,7 +38,8 @@ management:
   endpoints:
     web:
       exposure:
-        include: gateway, bus-refresh
+        include: '*'
+      base-path: /
 
 # 注册服务到注册中心
 eureka:

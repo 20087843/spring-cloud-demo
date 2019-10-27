@@ -17,9 +17,19 @@
     <packaging>jar</packaging>
 
     <dependencies>
-        <dependency>
+        <dependency><!-- 服务监控 -->
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-server</artifactId>
+        </dependency>
+        <dependency><!-- 断路器监控 -->
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-netflix-hystrix-dashboard</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency><!--配置中心客户端-->
             <groupId>org.springframework.cloud</groupId>
