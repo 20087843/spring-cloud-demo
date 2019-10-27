@@ -49,30 +49,9 @@
             <artifactId>spring-boot-admin-starter-client</artifactId>
             <version>${spring-boot-admin.version}</version>
         </dependency>
-        <dependency><!--配置中心客户端-->
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-client</artifactId>
-        </dependency>
-        <dependency><!--配置中心失败重试-->
-            <groupId>org.springframework.retry</groupId>
-            <artifactId>spring-retry</artifactId>
-        </dependency>
-        <dependency><!--服务链路追踪-->
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-zipkin</artifactId>
-        </dependency>
-        <dependency><!--断路器依赖-->
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
-        </dependency>
         <dependency><!--消息总线-->
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bus-amqp</artifactId>
-        </dependency>
-        <dependency><!--Lombok-->
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency><!--test-->
             <groupId>org.springframework.boot</groupId>
@@ -96,10 +75,6 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency><!-- hystix 可视化 -->
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-netflix-hystrix-dashboard</artifactId>
             </dependency>
             <dependency><!--稳定版本，替代spring security bom内置-->
                 <groupId>org.springframework.security.oauth</groupId>

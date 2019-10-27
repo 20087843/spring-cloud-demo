@@ -1,6 +1,7 @@
 spring:
   application:
     name: gateway-service
+    version: @project.version@
 
   cloud:
     config: # 从配置中心拉取配置文件
@@ -27,33 +28,3 @@ spring:
     port: 5672
     username: guest
     password: guest
-    virtual-host: zipkin
-
-  zipkin:
-    enabled: true # 启用 Zipkin 链路追踪
-    locator:
-      discovery:
-        enabled: true  # 通过注册中心发现服务 ID
-    compression:
-      enabled: true # 压缩数据
-    sender:
-      type: rabbit
-    rabbitmq:
-      topic: zipkin
-
-  sleuth:
-    enabled: true
-    sampler:
-      probability: 1.0
-    web:
-      client:
-        enabled: true
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: gateway, bus-refresh
-  server:
-    servlet:
-      context-path: /

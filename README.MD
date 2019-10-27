@@ -13,7 +13,8 @@ Spring Cloud 实例程序(Greenwich.SR3)
     - zippkin server
     - eureka client
     - config client
-        - cloud bus:rabitmq
+    - cloud bus:rabitmq
+    - elasticsearch(<6.0.0 版本)
 3. register-center(8860) 服务注册中心
     - eureka server
       - ribbon
@@ -41,9 +42,13 @@ Spring Cloud 实例程序(Greenwich.SR3)
 
     
 #### 项目部署
-1. 项目启动顺序
-    - config-server
+1. 环境配置
+    - 安装 jdk11 以上版本
+    - [安装 rabbitmq](project-notes/RabbitMq Install.MD) 
+    - 安装 elasticsearch 6.0.0 以下版本([ES 镜像](https://thans.cn/mirror/elasticsearch.html), 下载 zip 包，开箱即用) 
+2. 按顺序启动项目
     - register-center
+    - config-server
     - monitor-center
     - zipkin-server
     - gateway-service

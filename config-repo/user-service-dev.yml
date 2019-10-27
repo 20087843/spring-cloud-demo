@@ -16,7 +16,27 @@ spring:
       allow_unquoted_control_chars: true #允许出现特殊字符和转义符
       allow_single_quotes: true #允许出现单引号
 
-eureka:
+  zipkin:
+    enabled: true # 启用 Zipkin 链路追踪
+    locator:
+      discovery:
+        enabled: true  # 通过注册中心发现服务 ID
+    compression:
+      enabled: true # 压缩数据
+    sender:
+      type: rabbit
+    rabbitmq:
+      topic: zipkin
+
+  sleuth:
+    enabled: true
+    sampler:
+      probability: 1.0
+    web:
+      client:
+        enabled: true
+
+eureka: # 注册中心配置
   instance:
     hostname: register-center
     prefer-ip-address: true
@@ -24,7 +44,16 @@ eureka:
     service-url:
       defaultZone: http://localhost:8860/eureka/
 
-user:
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh
+  server:
+    servlet:
+      context-path: /
+
+user: # 应用测试数据
   name: Smilly
   identity: 21011220040804555X
   age: 26

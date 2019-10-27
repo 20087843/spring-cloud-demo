@@ -13,3 +13,31 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8860/eureka/
+
+zipkin:
+  storage: # es 配置
+    strict-trace-id: true
+    search-enabled: true
+    type: elasticsearch
+    elasticsearch:
+      hosts: http://localhost:9200
+      index: zipkin
+      index-shards: 5
+      index-replicas: 1
+  collector: # rabbitmq collector 配置
+    rabbitmq:
+      enabled: true
+      addresses: localhost:5672
+      username: guest
+      password: guest
+      queue: zipkin
+
+management:
+  metrics:
+    web:
+      server:
+        auto-time-requests: false
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

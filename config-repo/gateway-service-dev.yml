@@ -13,6 +13,33 @@ spring:
           enabled: true  # 通过注册中心自动根据服务ID建立路由
           lower-case-service-id: true
 
+  zipkin:
+    #    base-url: http://localhost:8850
+    enabled: true # 启用 Zipkin 链路追踪
+    locator:
+      discovery:
+        enabled: true  # 通过注册中心发现服务 ID
+    compression:
+      enabled: true # 压缩数据
+    sender:
+      type: rabbit
+    rabbitmq:
+      topic: zipkin
+
+  sleuth:
+    enabled: true
+    sampler:
+      probability: 1.0
+    web:
+      client:
+        enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway, bus-refresh
+
 # 注册服务到注册中心
 eureka:
   instance:

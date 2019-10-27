@@ -16,6 +16,25 @@ spring:
       allow_unquoted_control_chars: true #允许出现特殊字符和转义符
       allow_single_quotes: true #允许出现单引号
 
+  zipkin:
+    enabled: true # 启用 Zipkin 链路追踪
+    locator:
+      discovery:
+        enabled: true  # 通过注册中心发现服务 ID
+    compression:
+      enabled: true # 压缩数据
+    sender: # 使用 rabbitmq 发送数据
+      type: rabbit
+    rabbitmq:
+      topic: zipkin
+
+  sleuth:
+    enabled: true
+    sampler:
+      probability: 1.0
+    web:
+      client:
+        enabled: true
 
 feign:  #feign的配置
   httpclient:
@@ -28,10 +47,19 @@ feign:  #feign的配置
     response:
       enabled: true
 
-eureka:
+eureka: # 注册中心配置
   instance:
     hostname: register-center
     prefer-ip-address: true
   client:
     service-url:
       defaultZone: http://localhost:8860/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refres
+  server:
+    servlet:
+      context-path: /

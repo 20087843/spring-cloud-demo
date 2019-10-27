@@ -13,3 +13,9 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8860/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh # 公开 web 端点

@@ -1,0 +1,1 @@
+java -jar zipkin-server-2.12.9-exec.jar --zipkin.collector.rabbitmq.addresses=localhost --zipkin.collector.rabbitmq.username=guest --zipkin.collector.rabbitmq.password=guest --server.port=8850 -DSTORAGE_TYPE=elasticsearch -DES_HOSTS=http://localhost:9200

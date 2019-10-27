@@ -1,3 +1,4 @@
 spring:
   application:
     name: register-center
+    version: @project.version@
