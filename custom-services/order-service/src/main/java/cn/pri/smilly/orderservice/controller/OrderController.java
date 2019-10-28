@@ -1,7 +1,6 @@
 package cn.pri.smilly.orderservice.controller;
 
 import cn.pri.smilly.commonservice.bean.RestResult;
-import cn.pri.smilly.commonservice.constant.RestStatus;
 import cn.pri.smilly.orderservice.bean.User;
 import cn.pri.smilly.orderservice.client.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

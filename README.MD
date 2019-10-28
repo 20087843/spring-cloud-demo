@@ -70,6 +70,13 @@ a demo of spring cloud with version Greenwich.SR3, include config, registry, mon
 ![Architecture](project-notes/resources/architecture.png)
 
 #### 组件介绍
+1. [Spring Cloud Config 配置中心](project-notes/Spring Cloud Config.MD)
+2. [Spring Cloud Eureka 注册中心](project-notes/Spring Cloud Eureka.MD)
+3. [Spring Cloud Zipkin 链路追踪](project-notes/Spring Cloud Zipkin.MD)
+4. [Spring Cloud Feign 服务调用](project-notes/Spring-Cloud-Feign.MD)
+5. [Spring Cloud Zuul 网关](project-notes/Spring-Cloud-Zuul.MD)
+6. [Spring Cloud Bus 消息总线](project-notes/Spring Cloud Bus.MD)
+7. [Spring Cloud Security 安全权限](project-notes/Spring Cloud Security.MD)
 
 #### 参考教程
 1. [配置中心自动刷新](https://blog.csdn.net/wtdm_160604/article/details/83720391)
@@ -82,7 +89,7 @@ a demo of spring cloud with version Greenwich.SR3, include config, registry, mon
 3. [zhangxd1989/spring-boot-cloud](https://github.com/zhangxd1989/spring-boot-cloud)
 4. [spring-cloud-samples/brewery](https://github.com/spring-cloud-samples/brewery)
 5. [hope-for/hope-cloud](https://github.com/hope-for/hope-cloud)
-
+6. [wsm1217395196/my-study](https://github.com/wsm1217395196/my-study)
 
 
 

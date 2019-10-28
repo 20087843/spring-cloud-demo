@@ -1,7 +1,15 @@
 spring:
   application:
-    name: zipkin-server
+    name: @project.artifactId@
     version: @project.version@
+
+  profiles:
+    active: @profileActive@
+
+  security:
+    user:
+      name: ${ZIPKIN_SERVER_USERNAME:zipkin}
+      password: ${ZIPKIN_SERVER_PASSWORD:zipkin}
 
   cloud:
     config: # 从配置中心拉取配置文件
@@ -10,7 +18,7 @@ spring:
       uri: http://localhost:8888/
       username: ${CONFIG_SERVER_USERNAME:config}
       password: ${CONFIG_SERVER_PASSWORD:config}
-      profile: dev
+      profile: ${spring.profiles.active}
       label: master
       discovery:
         enable: true
@@ -31,3 +39,43 @@ spring:
     port: 5672
     username: guest
     password: guest
+
+# 注册服务到注册中心
+eureka:
+  instance:
+    hostname: register-center
+    prefer-ip-address: true
+    metadata-map:
+      user.name: ${srping.security.user.name}
+      user.password: ${srping.security.user.password}
+  client:
+    service-url:
+      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@localhost:8860/eureka/
+
+zipkin:
+  storage: # es 配置
+    strict-trace-id: true
+    search-enabled: true
+    type: elasticsearch
+    elasticsearch:
+      hosts: http://localhost:9200
+      index: zipkin
+      index-shards: 5
+      index-replicas: 1
+  collector: # rabbitmq collector 配置
+    rabbitmq:
+      enabled: true
+      addresses: localhost:5672
+      username: guest
+      password: guest
+      queue: zipkin
+
+management:
+  metrics:
+    web:
+      server:
+        auto-time-requests: false
+  endpoints:
+    web:
+      exposure:
+        include: '*'

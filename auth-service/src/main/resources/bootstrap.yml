@@ -1,7 +1,10 @@
 spring:
   application:
-    name: auth-service
+    name: @project.artifactId@
     version: @project.version@
+
+  profiles:
+    active: @profileActive@
 
   cloud:
     config: # 从配置中心拉取配置文件
@@ -10,7 +13,7 @@ spring:
       uri: http://localhost:8888/
       username: user
       password: ${CONFIG_SERVER_PASSWORD:password}
-      profile: dev
+      profile: ${spring.profiles.active}
       label: master
       discovery:
         enable: true
@@ -27,3 +30,38 @@ spring:
     username: guest
     password: guest
     virtual-host: zipkin
+
+  datasource:
+    url: jdbc:h2:mem:user
+    driver-class-name: org.h2.Driver
+  jpa:
+    show-sql: true
+
+# 注册服务到注册中心
+eureka:
+  instance:
+    hostname: register-center
+    prefer-ip-address: true
+    health-check-url-path: ${server.context-path}${management.context-path}/health
+    status-page-url-path: ${server.context-path}${management.context-path}/info
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
+      management.context-path: ${server.context-path}${management.context-path}
+  client:
+    service-url:
+      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@localhost:8860/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    health:
+      show-details: ALWAYS
+  server:
+    servlet:
+      context-path: /
+    ssl:
+      enabled: false
+

@@ -3,6 +3,14 @@ spring:
     name: gateway-service
     version: @project.version@
 
+  profiles:
+    active: @profileActive@
+
+  security:
+    user:
+      name: ${GATEWAY_SERVICE_USERNAME:gateway}
+      password: ${GATEWAY_SERVICE_PASSWORD:gateway}
+
   cloud:
     config: # 从配置中心拉取配置文件
       enabled: true
@@ -10,7 +18,7 @@ spring:
       uri: http://localhost:8888/
       username: ${CONFIG_SERVER_USERNAME:config}
       password: ${CONFIG_SERVER_PASSWORD:config}
-      profile: dev
+      profile: ${spring.profiles.active}
       label: master
       discovery:
         enable: true
@@ -20,6 +28,12 @@ spring:
         max-interval: 10000 #最长重试间隔
         multiplier: 1.2 #每次重试失败后，重试间隔所增加的倍数
         max-attempts: 10 #最多重试次数
+    gateway: # 网关配置
+      enabled: true
+      discovery:
+        locator:
+          enabled: true  # 通过注册中心自动根据服务ID建立路由
+          lower-case-service-id: true
 
     bus:
       enabled: true
@@ -31,3 +45,42 @@ spring:
     port: 5672
     username: guest
     password: guest
+
+  zipkin:
+    #    base-url: http://localhost:8850
+    enabled: true # 启用 Zipkin 链路追踪
+    locator:
+      discovery:
+        enabled: true  # 通过注册中心发现服务 ID
+    compression:
+      enabled: true # 压缩数据
+    sender:
+      type: rabbit
+    rabbitmq:
+      topic: zipkin
+
+  sleuth:
+    enabled: true
+    sampler:
+      probability: 1.0
+    web:
+      client:
+        enabled: true
+
+eureka: # 注册服务到注册中心
+  instance:
+    hostname: register-center
+    prefer-ip-address: true
+    metadata-map:
+      user.name: ${srping.security.user.name}
+      user.password: ${srping.security.user.password}
+  client:
+    service-url:
+      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@localhost:8860/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: /

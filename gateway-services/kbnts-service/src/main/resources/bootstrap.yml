@@ -1,34 +1,84 @@
-
 spring:
   application:
     name: kbnts-service
     version: @project.version@
 
+  profiles:
+    active: @profileActive@
+
+  security:
+    user:
+      name: ${ZULL_SERVICE_USERNAME:kbnts}
+      password: ${ZULL_SERVICE_PASSWORD:kbnts}
+
   cloud:
-    config: # ´ÓÅäÖÃÖĞĞÄÀ­È¡ÅäÖÃÎÄ¼ş
+    config: # ä»é…ç½®ä¸­å¿ƒæ‹‰å–é…ç½®æ–‡ä»¶
       enabled: true
       fail-fast: true
       uri: http://localhost:8888/
       username: ${CONFIG_SERVER_USERNAME:config}
       password: ${CONFIG_SERVER_PASSWORD:config}
-      profile: dev
+      profile: ${spring.profiles.active}
       label: master
       discovery:
         enable: true
-        service-id: config-server #Config Server¶ËµÄ·şÎñÃû×Ö£¬²»ÄÜÏ¹Ğ´
-      retry: # ÅäÖÃÖĞĞÄÊ§°ÜÖØÊÔ
-        initial-interval: 2000 #×î³õÖØÊÔ¼ä¸ô
-        max-interval: 10000 #×î³¤ÖØÊÔ¼ä¸ô
-        multiplier: 1.2 #Ã¿´ÎÖØÊÔÊ§°Üºó£¬ÖØÊÔ¼ä¸ôËùÔö¼ÓµÄ±¶Êı
-        max-attempts: 10 #×î¶àÖØÊÔ´ÎÊı
+        service-id: config-server #Config Serverç«¯çš„æœåŠ¡åå­—ï¼Œä¸èƒ½çå†™
+      retry: # é…ç½®ä¸­å¿ƒå¤±è´¥é‡è¯•
+        initial-interval: 2000 #æœ€åˆé‡è¯•é—´éš”
+        max-interval: 10000 #æœ€é•¿é‡è¯•é—´éš”
+        multiplier: 1.2 #æ¯æ¬¡é‡è¯•å¤±è´¥åï¼Œé‡è¯•é—´éš”æ‰€å¢åŠ çš„å€æ•°
+        max-attempts: 10 #æœ€å¤šé‡è¯•æ¬¡æ•°
 
     bus:
       enabled: true
       trace:
         enabled: true
 
-  rabbitmq: # ÅäÖÃÏûÏ¢×ÜÏß
+  rabbitmq: # é…ç½®æ¶ˆæ¯æ€»çº¿
     host: localhost
     port: 5672
     username: guest
     password: guest
+
+  zipkin:
+    #    base-url: http://localhost:8850
+    enabled: true # å¯ç”¨ Zipkin é“¾è·¯è¿½è¸ª
+    locator:
+      discovery:
+        enabled: true  # é€šè¿‡æ³¨å†Œä¸­å¿ƒå‘ç°æœåŠ¡ ID
+    compression:
+      enabled: true # å‹ç¼©æ•°æ®
+    sender:
+      type: rabbit
+    rabbitmq:
+      topic: zipkin
+
+  sleuth:
+    enabled: true
+    sampler:
+      probability: 1.0
+    web:
+      client:
+        enabled: true
+
+eureka: # æ³¨å†ŒæœåŠ¡åˆ°æ³¨å†Œä¸­å¿ƒ
+  instance:
+    hostname: register-center
+    prefer-ip-address: true
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
+  client:
+    service-url:
+      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@localhost:8860/eureka/
+
+ribbon:
+  eureka:
+    enabled: true
+
+management: # ç›‘æ§æ¥å£æš´éœ²
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+      base-path: /

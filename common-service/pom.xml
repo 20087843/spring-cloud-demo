@@ -5,29 +5,42 @@
 
     <parent>
         <groupId>cn.pri.smilly</groupId>
-        <artifactId>custom-services</artifactId>
+        <artifactId>spring-cloud-demo</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <groupId>cn.pri.smilly</groupId>
-    <artifactId>product-service</artifactId>
+    <artifactId>common-service</artifactId>
     <version>${project.parent.version}</version>
     <name>${project.artifactId}</name>
+    <description>Demo project for Spring Cloud</description>
     <packaging>jar</packaging>
-    <description>Demo project for Spring Boot</description>
 
     <dependencies>
         <dependency>
-            <groupId>cn.pri.smilly</groupId>
-            <artifactId>common-service</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency><!--Lombok-->
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency><!--swagger-->
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+        </dependency>
+        <dependency><!--fastjson-->
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+        <dependency><!--commons util-->
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
     </dependencies>
 

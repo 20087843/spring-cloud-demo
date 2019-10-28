@@ -1,7 +1,15 @@
 spring:
   application:
-    name: monitor-center
+    name: @project.artifactId@
     version: @project.version@
+
+  profiles:
+    active: @profileActive@
+
+  security:
+    user:
+      name: ${MONITOR_CENTER_USERNAME:monitor}
+      password: ${MONITOR_CENTER_PASSWORD:monitor}
 
   cloud:
     config: #从配置中心拉取配置文件，远程文件名格式 {app-name}-{profile}.yml
@@ -10,7 +18,7 @@ spring:
       uri: http://localhost:8888/ #配置中心地址
       username: ${CONFIG_SERVER_USERNAME:config}
       password: ${CONFIG_SERVER_PASSWORD:config}
-      profile: dev
+      profile: ${spring.profiles.active}
       label: master #从 master 分支拉取
       discovery:
         enable: true
@@ -31,3 +39,21 @@ spring:
     port: 5672
     username: guest
     password: guest
+
+# 注册服务到注册中心
+eureka:
+  instance:
+    hostname: register-center
+    prefer-ip-address: true
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
+  client:
+    service-url:
+      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@localhost:8860/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*' # 公开 web 端点

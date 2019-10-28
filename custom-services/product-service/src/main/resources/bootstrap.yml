@@ -1,7 +1,22 @@
 spring:
   application:
-    name: order-service
+    name: @project.artifactId@
     version: @project.version@
+
+  profiles:
+    active: @profileActive@
+
+  security:
+    user:
+      name: ${PRODUCT_SERVICE_USERNAME:product}
+      password: ${PRODUCT_SERVICE_PASSWORD:product}
+    oauth2:
+      client:
+        clientId: product-service
+        clientSecret: ${spring.security.user.password}
+        accessTokenUri: http://${authserver.hostname}:${authserver.port}${authserver.contextPath}/oauth/token
+        grant-type: client_credentials
+        scope: server
 
   cloud:
     config:
@@ -10,16 +25,16 @@ spring:
       uri: http://localhost:8888/
       username: ${CONFIG_SERVER_USERNAME:config}
       password: ${CONFIG_SERVER_PASSWORD:config}
-      profile: dev
+      profile: ${spring.profiles.active}
       label: master
       discovery:
         enable: true
         service-id: config-server
-      retry: # ��������ʧ������
-        initial-interval: 2000 #������Լ��
-        max-interval: 10000 #����Լ��
-        multiplier: 1.2 #ÿ������ʧ�ܺ����Լ�������ӵı���
-        max-attempts: 10 #������Դ���
+      retry: # 配置中心失败重试
+        initial-interval: 2000 #最初重试间隔
+        max-interval: 10000 #最长重试间隔
+        multiplier: 1.2 #每次重试失败后，重试间隔所增加的倍数
+        max-attempts: 10 #最多重试次数
 
     bus:
       enabled: true
@@ -31,3 +46,69 @@ spring:
     port: 5672
     username: guest
     password: guest
+
+  jackson: # jackson json 格式化工具配置
+    serialization:
+      indent_output: true #格式化输出
+      fail_on_empty_beans: false #忽略无法转换的对象
+    defaultPropertyInclusion: NON_EMPTY #设置空如何序列化
+    deserialization:
+      fail_on_unknown_properties: false #允许对象忽略json中不存在的属性
+    parser:
+      allow_unquoted_control_chars: true #允许出现特殊字符和转义符
+      allow_single_quotes: true #允许出现单引号
+
+  zipkin:
+    enabled: true # 启用 Zipkin 链路追踪
+    locator:
+      discovery:
+        enabled: true  # 通过注册中心发现服务 ID
+    compression:
+      enabled: true # 压缩数据
+    sender: # 使用 rabbitmq 发送数据
+      type: rabbit
+    rabbitmq:
+      topic: zipkin
+
+  sleuth:
+    enabled: true
+    sampler:
+      probability: 1.0
+    web:
+      client:
+        enabled: true
+
+feign:  #feign的配置
+  hystrix:
+    enabled: true
+  httpclient:
+    connection-timeout: 5000  #连接超时配置
+    enabled: true
+  compression: # 请求响应数据压缩配置
+    request:
+      enabled: true
+      min-request-size: 1024 # 请求数据压缩阈值
+    response:
+      enabled: true
+
+eureka: # 注册中心配置
+  instance:
+    hostname: register-center
+    prefer-ip-address: true
+    metadata-map:
+      user.name: ${srping.security.user.name}
+      user.password: ${srping.security.user.password}
+  client:
+    service-url:
+      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@localhost:8860/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    health:
+      show-details: ALWAYS
+  server:
+    servlet:
+      context-path: /

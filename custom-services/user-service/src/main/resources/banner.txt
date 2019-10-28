@@ -1,5 +1,5 @@
 =========================================   ${AnsiColor.YELLOW}${AnsiStyle.BOLD}
-        user-service : ${AnsiColor.MAGENTA}${spring.application.version}
+        ${spring.application.name} : ${AnsiColor.MAGENTA}${spring.application.version}
                                             ${AnsiStyle.NORMAL}${AnsiColor.RED}
   _____             _  _  _                 ${AnsiColor.YELLOW}
  / ____|           (_)| || |                ${AnsiColor.YELLOW}
