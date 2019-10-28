@@ -5,6 +5,11 @@ spring:
   profiles:
     active: dev
 
+  security:
+    user:
+      name: ${ZULL_SERVICE_USERNAME:zuul}
+      password: ${ZULL_SERVICE_PASSWORD:zuul}
+
   zipkin:
     #    base-url: http://localhost:8850
     enabled: true # 启用 Zipkin 链路追踪
@@ -30,9 +35,12 @@ eureka: # 注册服务到注册中心
   instance:
     hostname: register-center
     prefer-ip-address: true
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
   client:
     service-url:
-      defaultZone: http://localhost:8860/eureka/
+      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@localhost:8860/eureka/
 
 ribbon:
   eureka:

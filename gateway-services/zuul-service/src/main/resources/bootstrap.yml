@@ -6,7 +6,10 @@ spring:
   cloud:
     config: # 从配置中心拉取配置文件
       enabled: true
+      fail-fast: true
       uri: http://localhost:8888/
+      username: ${CONFIG_SERVER_USERNAME:config}
+      password: ${CONFIG_SERVER_PASSWORD:config}
       profile: dev
       label: master
       discovery:

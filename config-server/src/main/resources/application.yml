@@ -20,14 +20,22 @@ spring:
     username: guest
     password: guest
 
-# 向注册中心注册
-eureka:
+  security:
+    user:
+      name: ${CONFIG_SERVER_USERNAME:config}
+      password: ${CONFIG_SERVER_PASSWORD:config}
+
+eureka: # 向注册中心注册
   instance:
     hostname: register-center
     prefer-ip-address: true
+    metadata-map:
+      user.name:  ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
   client:
+    fetch-registry: true # 从eureka服务器获取eureka注册表信息
     service-url:
-      defaultZone: http://localhost:8860/eureka/
+      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@localhost:8860/eureka/
 
 management:
   endpoints:

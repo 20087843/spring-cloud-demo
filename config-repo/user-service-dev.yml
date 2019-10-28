@@ -5,6 +5,18 @@ spring:
   profiles:
     active: dev
 
+  security:
+    user:
+      name: ${USER_SERVICE_USERNAME:user}
+      password: ${USER_SERVICE_PASSWORD:user}
+    oauth2:
+      client:
+        clientId: user-service
+        clientSecret: ${spring.security.user.password}
+        accessTokenUri: http://${authserver.hostname}:${authserver.port}${authserver.contextPath}/oauth/token
+        grant-type: client_credentials
+        scope: server
+
   jackson: # jackson json 格式化工具配置
     serialization:
       indent_output: true #格式化输出
@@ -40,9 +52,12 @@ eureka: # 注册中心配置
   instance:
     hostname: register-center
     prefer-ip-address: true
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
   client:
     service-url:
-      defaultZone: http://localhost:8860/eureka/
+      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@localhost:8860/eureka/
 
 management:
   endpoints:

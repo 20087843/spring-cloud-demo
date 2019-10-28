@@ -5,14 +5,22 @@ spring:
   profiles:
     active: dev
 
+  security:
+    user:
+      name: ${MONITOR_CENTER_USERNAME:monitor}
+      password: ${MONITOR_CENTER_PASSWORD:monitor}
+
 # 注册服务到注册中心
 eureka:
   instance:
     hostname: register-center
     prefer-ip-address: true
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
   client:
     service-url:
-      defaultZone: http://localhost:8860/eureka/
+      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@localhost:8860/eureka/
 
 management:
   endpoints:

@@ -5,6 +5,11 @@ spring:
   profiles:
     active: dev
 
+  security:
+    user:
+      name: ${GATEWAY_SERVICE_USERNAME:gateway}
+      password: ${GATEWAY_SERVICE_PASSWORD:gateway}
+
   cloud:
     gateway:
       enabled: true
@@ -34,18 +39,20 @@ spring:
       client:
         enabled: true
 
+eureka: # 注册服务到注册中心
+  instance:
+    hostname: register-center
+    prefer-ip-address: true
+    metadata-map:
+      user.name: ${srping.security.user.name}
+      user.password: ${srping.security.user.password}
+  client:
+    service-url:
+      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@localhost:8860/eureka/
+
 management:
   endpoints:
     web:
       exposure:
         include: '*'
       base-path: /
-
-# 注册服务到注册中心
-eureka:
-  instance:
-    hostname: register-center
-    prefer-ip-address: true
-  client:
-    service-url:
-      defaultZone: http://localhost:8860/eureka/

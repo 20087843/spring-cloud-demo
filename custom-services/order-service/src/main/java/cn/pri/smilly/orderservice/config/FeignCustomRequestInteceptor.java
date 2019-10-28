@@ -25,8 +25,9 @@ public class FeignCustomRequestInteceptor implements RequestInterceptor {
         if (HttpMethod.GET.toString() == template.method() && template.body() != null) {
             //feign 不支持GET方法传输POJO 转换成json，再换成query
             try {
-                Map<String, Collection<String>> map = objectMapper.readValue(template.bodyTemplate(), new TypeReference<Map<String, Collection<String>>>() {
-                });
+                TypeReference<Map<String, Collection<String>>> typeReference = new TypeReference() {
+                };
+                Map<String, Collection<String>> map = objectMapper.readValue(template.bodyTemplate(), typeReference);
                 template.body((Request.Body) null);
                 template.queries(map);
             } catch (IOException e) {
@@ -34,4 +35,6 @@ public class FeignCustomRequestInteceptor implements RequestInterceptor {
             }
         }
     }
+
+
 }

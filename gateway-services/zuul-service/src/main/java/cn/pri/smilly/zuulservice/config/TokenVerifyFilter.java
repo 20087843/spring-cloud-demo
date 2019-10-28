@@ -45,7 +45,7 @@ public class TokenVerifyFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
         String accessToken = request.getHeader("accessToken");
-        if(StringUtils.isEmpty(accessToken)) {
+        if (StringUtils.isEmpty(accessToken)) {
             ctx.setSendZuulResponse(false);
             ctx.setResponseStatusCode(401);
             return null;
