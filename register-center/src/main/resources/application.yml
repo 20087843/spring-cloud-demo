@@ -2,27 +2,31 @@ server:
   port: 8860
 
 spring:
+  application:
+    name: ${project.name}
+    version: ${project.version}
+
   profiles:
-    active: @profileActive@
+    active: ${profile.active}
 
   security:
     user:
       name: ${REGISTER_CENTER_USERNAME:register}
-      password:  ${REGISTER_CENTER_PASSWORD:register}
+      password: ${REGISTER_CENTER_PASSWORD:register}
 
 # 注册中心配置
 eureka:
   instance:
-    hostname: register-center
+    hostname: ${spring.application.name}
     prefer-ip-address: true
     metadata-map:
-      user.name:  ${spring.security.user.name}
+      user.name: ${spring.security.user.name}
       user.password: ${spring.security.user.password}
   client:
     register-with-eureka: false
     fetch-registry: false
     service-url:
-      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:${server.port}/eureka/
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${register.center.host}:${server.port}/eureka/
   server:
     enable-self-preservation: false
 

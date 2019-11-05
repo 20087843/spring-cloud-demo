@@ -28,6 +28,7 @@
     </modules>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>12</java.version>
         <spring-cloud.version>Greenwich.SR3</spring-cloud.version>
         <spring-boot-admin.version>2.1.5</spring-boot-admin.version>
@@ -39,6 +40,7 @@
         <commons-lang.version>3.6</commons-lang.version>
         <fastjson.version>1.2.59</fastjson.version>
         <swagger.version>2.9.2</swagger.version>
+        <jwt.version>0.9.0</jwt.version>
     </properties>
 
     <profiles>
@@ -47,13 +49,73 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+            <properties>
+                <profile.active>dev</profile.active>
+                <auth.service.host>localhost</auth.service.host>
+                <auth.service.port>8820</auth.service.port>
+                <auth.service.root>/</auth.service.root>
+                <config.server.name>config-server</config.server.name>
+                <config.server.url>https://github.com/20087843/spring-cloud-demo</config.server.url>
+                <config.server.path>config-repo</config.server.path>
+                <config.server.host>localhost</config.server.host>
+                <config.server.port>8888</config.server.port>
+                <register.center.name>register-center</register.center.name>
+                <register.center.host>localhost</register.center.host>
+                <register.center.port>8860</register.center.port>
+                <rabbitmq.host>localhost</rabbitmq.host>
+                <rabbitmq.port>5672</rabbitmq.port>
+                <rabbitmq.username>guest</rabbitmq.username>
+                <rabbitmq.password>guest</rabbitmq.password>
+                <elasticsearch.host>localhost</elasticsearch.host>
+                <elasticsearch.port>9200</elasticsearch.port>
+            </properties>
         </profile>
 
         <profile>
+            <properties>
+                <profile.active>prd</profile.active>
+                <auth.service.host>localhost</auth.service.host>
+                <auth.service.port>8820</auth.service.port>
+                <auth.service.root>/</auth.service.root>
+                <config.server.name>config-server</config.server.name>
+                <config.server.url>https://github.com/20087843/spring-cloud-demo</config.server.url>
+                <config.server.path>config-repo</config.server.path>
+                <config.server.host>localhost</config.server.host>
+                <config.server.port>8888</config.server.port>
+                <register.center.name>register-center</register.center.name>
+                <register.center.host>localhost</register.center.host>
+                <register.center.port>8860</register.center.port>
+                <rabbitmq.host>localhost</rabbitmq.host>
+                <rabbitmq.port>5672</rabbitmq.port>
+                <rabbitmq.username>guest</rabbitmq.username>
+                <rabbitmq.password>guest</rabbitmq.password>
+                <elasticsearch.host>localhost</elasticsearch.host>
+                <elasticsearch.port>9200</elasticsearch.port>
+            </properties>
             <id>prd</id>
         </profile>
 
         <profile>
+            <properties>
+                <profile.active>test</profile.active>
+                <auth.service.host>localhost</auth.service.host>
+                <auth.service.port>8820</auth.service.port>
+                <auth.service.root>/</auth.service.root>
+                <config.server.name>config-server</config.server.name>
+                <config.server.url>https://github.com/20087843/spring-cloud-demo</config.server.url>
+                <config.server.path>config-repo</config.server.path>
+                <config.server.host>localhost</config.server.host>
+                <config.server.port>8888</config.server.port>
+                <register.center.name>register-center</register.center.name>
+                <register.center.host>localhost</register.center.host>
+                <register.center.port>8860</register.center.port>
+                <rabbitmq.host>localhost</rabbitmq.host>
+                <rabbitmq.port>5672</rabbitmq.port>
+                <rabbitmq.username>guest</rabbitmq.username>
+                <rabbitmq.password>guest</rabbitmq.password>
+                <elasticsearch.host>localhost</elasticsearch.host>
+                <elasticsearch.port>9200</elasticsearch.port>
+            </properties>
             <id>test</id>
         </profile>
     </profiles>
@@ -73,6 +135,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>cn.pri.smilly</groupId>
+                <artifactId>common-service</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
             <dependency><!--Spring Cloud-->
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
@@ -96,6 +163,11 @@
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-jwt</artifactId>
                 <version>${security.jwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jwt.version}</version>
             </dependency>
             <dependency><!--zipkin server-->
                 <groupId>io.zipkin.java</groupId>
@@ -145,9 +217,19 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <filtering>true</filtering>
+                <filtering>true</filtering><!--开启过滤，用指定的参数替换 directory下的文件中的参数-->
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <useDefaultDelimiters>true</useDefaultDelimiters>
+                </configuration>
+            </plugin>
+        </plugins>
         <pluginManagement>
             <plugins>
                 <plugin>

@@ -1,4 +1,4 @@
-package cn.pri.smilly.orderservice.bean;
+package cn.pri.smilly.commonservice.bean.vo;
 
 import cn.pri.smilly.commonservice.bean.BaseBean;
 import lombok.Getter;
@@ -6,10 +6,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class User extends BaseBean {
+public class GoodsVo extends BaseBean {
     private String id;
-    private String identity;
     private String name;
-    private int age;
-    private String sex;
+    private int qty;
+    private String unit;
+    private double wgt;
 }

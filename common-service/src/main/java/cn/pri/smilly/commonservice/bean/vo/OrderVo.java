@@ -1,4 +1,4 @@
-package cn.pri.smilly.orderservice.bean;
+package cn.pri.smilly.commonservice.bean.vo;
 
 import cn.pri.smilly.commonservice.bean.BaseBean;
 import lombok.Getter;
@@ -8,8 +8,8 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Order extends BaseBean {
+public class OrderVo extends BaseBean {
     private String id;
     private User user;
-    private List<Goods> goodsList;
+    private List<GoodsVo> goodsList;
 }

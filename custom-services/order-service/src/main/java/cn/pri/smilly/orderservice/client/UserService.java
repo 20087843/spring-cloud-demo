@@ -1,7 +1,7 @@
 package cn.pri.smilly.orderservice.client;
 
 import cn.pri.smilly.commonservice.bean.RestResult;
-import cn.pri.smilly.orderservice.bean.User;
+import cn.pri.smilly.commonservice.bean.po.UserPo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +13,6 @@ public interface UserService {
     RestResult getUserInfo();
 
     @PostMapping("/user-service/user/save")
-    RestResult saveUser(User user);
+    RestResult saveUser(UserPo user);
 
 }

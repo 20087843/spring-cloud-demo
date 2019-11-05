@@ -1,4 +1,4 @@
-package cn.pri.smilly.commonservice.config;
+package cn.pri.smilly.zuulservice.config;
 
 import lombok.Getter;
 import lombok.Setter;

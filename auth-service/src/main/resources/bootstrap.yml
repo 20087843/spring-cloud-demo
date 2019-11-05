@@ -1,46 +1,55 @@
 spring:
   application:
-    name: @project.artifactId@
-    version: @project.version@
+    name: ${project.artifactId}
+    version: ${project.version}
 
   profiles:
-    active: @profileActive@
+    active: ${profile.active}
 
   cloud:
-    config: # 从配置中心拉取配置文件
-      enabled: true
+    config: #从配置中心拉取配置文件，远程文件名格式 {app-name}-{profile}.yml
+      enabled: true #启用config配置
       fail-fast: true
-      uri: http://localhost:8888/
-      username: user
-      password: ${CONFIG_SERVER_PASSWORD:password}
+      uri: http://${config.server.host}:${config.server.port}/ #配置中心地址
+      username: ${CONFIG_SERVER_USERNAME:config}
+      password: ${CONFIG_SERVER_PASSWORD:config}
       profile: ${spring.profiles.active}
-      label: master
+      label: master #从 master 分支拉取
       discovery:
         enable: true
-        service-id: config-server #Config Server端的服务名字，不能瞎写
+        service-id: ${config.server.name} #Config Server端的服务名字，不能瞎写
       retry: # 配置中心失败重试
         initial-interval: 2000 #最初重试间隔
         max-interval: 10000 #最长重试间隔
         multiplier: 1.2 #每次重试失败后，重试间隔所增加的倍数
         max-attempts: 10 #最多重试次数
 
-  rabbitmq: # 配置消息总线
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+  rabbitmq: # 消息总线配置
+    host: ${rabbitmq.host}
+    port: ${rabbitmq.port}
+    username: ${rabbitmq.username}
+    password: ${rabbitmq.password}
     virtual-host: zipkin
 
-  datasource:
-    url: jdbc:h2:mem:user
-    driver-class-name: org.h2.Driver
   jpa:
     show-sql: true
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/spring_cloud_demo?useUnicode=true&characterEncoding=utf-8&serverTimeZone=GMT
+    username: smilly
+    password: smilly
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: smilly
 
 # 注册服务到注册中心
 eureka:
   instance:
-    hostname: register-center
+    hostname: ${register.center.name}
     prefer-ip-address: true
     health-check-url-path: ${server.context-path}${management.context-path}/health
     status-page-url-path: ${server.context-path}${management.context-path}/info
@@ -50,7 +59,7 @@ eureka:
       management.context-path: ${server.context-path}${management.context-path}
   client:
     service-url:
-      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@localhost:8860/eureka/
+      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@${register.center.host}:${register.center.port}/eureka/
 
 management:
   endpoints:

@@ -11,7 +11,7 @@
 
     <groupId>cn.pri.smilly</groupId>
     <artifactId>order-service</artifactId>
-    <version>${project.parent.version}</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <description>Demo project for Spring Boot</description>
     <packaging>jar</packaging>

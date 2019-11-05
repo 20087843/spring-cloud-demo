@@ -1,4 +1,4 @@
-package cn.pri.smilly.productservice.bean;
+package cn.pri.smilly.commonservice.bean.vo;
 
 import cn.pri.smilly.commonservice.bean.BaseBean;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Product extends BaseBean {
+public class ProductVo extends BaseBean {
     private String id;
     private String name;
     private double price;

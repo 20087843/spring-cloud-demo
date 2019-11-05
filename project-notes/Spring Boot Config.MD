@@ -15,3 +15,6 @@ Spring Boot 配置文件读取 Maven 配置
        </configuration>
     </plugin>
     ```
+   
+### 参考资料
+1. [插件maven-resources-plugin](https://my.oschina.net/u/2377110/blog/1584204)

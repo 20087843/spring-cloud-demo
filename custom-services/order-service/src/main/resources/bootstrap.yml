@@ -1,10 +1,10 @@
 spring:
   application:
-    name: @project.artifactId@
-    version: @project.version@
+    name: ${project.artifactId}
+    version: ${project.version}
 
   profiles:
-    active: @profileActive@
+    active: ${profile.active}
 
   security:
     user:
@@ -12,24 +12,24 @@ spring:
       password: ${ORDER_SERVICE_PASSWORD:order}
     oauth2:
       client:
-        clientId: order-service
+        clientId: ${spring.application.name}
         clientSecret: ${spring.security.user.password}
-        accessTokenUri: http://${authserver.hostname}:${authserver.port}${authserver.contextPath}/oauth/token
+        accessTokenUri: http://${auth.service.host}:${auth.service.port}${auth.service.root}/oauth/token
         grant-type: client_credentials
         scope: server
 
   cloud:
-    config:
-      enabled: true
+    config: #从配置中心拉取配置文件，远程文件名格式 {app-name}-{profile}.yml
+      enabled: true #启用config配置
       fail-fast: true
-      uri: http://localhost:8888/
+      uri: http://${config.server.host}:${config.server.port}/ #配置中心地址
       username: ${CONFIG_SERVER_USERNAME:config}
       password: ${CONFIG_SERVER_PASSWORD:config}
       profile: ${spring.profiles.active}
-      label: master
+      label: master #从 master 分支拉取
       discovery:
         enable: true
-        service-id: config-server
+        service-id: ${config.server.name} #Config Server端的服务名字，不能瞎写
       retry: # 配置中心失败重试
         initial-interval: 2000 #最初重试间隔
         max-interval: 10000 #最长重试间隔
@@ -41,11 +41,11 @@ spring:
       trace:
         enabled: true
 
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+  rabbitmq: # 消息总线配置
+    host: ${rabbitmq.host}
+    port: ${rabbitmq.port}
+    username: ${rabbitmq.username}
+    password: ${rabbitmq.password}
 
   jackson: # jackson json 格式化工具配置
     serialization:
@@ -91,16 +91,16 @@ feign:  #feign的配置
     response:
       enabled: true
 
-eureka: # 注册中心配置
+eureka: # 注册服务到注册中心
   instance:
-    hostname: register-center
+    hostname: ${register.center.name}
     prefer-ip-address: true
     metadata-map:
-      user.name: ${srping.security.user.name}
-      user.password: ${srping.security.user.password}
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
   client:
     service-url:
-      defaultZone: http://${REGISTER_CENTER_PASSWORD:register}:${REGISTER_CENTER_PASSWORD:register}@localhost:8860/eureka/
+      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@${register.center.host}:${register.center.port}/eureka/
 
 management:
   endpoints:

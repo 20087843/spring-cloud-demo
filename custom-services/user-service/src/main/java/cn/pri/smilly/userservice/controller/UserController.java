@@ -1,7 +1,8 @@
 package cn.pri.smilly.userservice.controller;
 
 import cn.pri.smilly.commonservice.bean.RestResult;
-import cn.pri.smilly.userservice.bean.User;
+import cn.pri.smilly.commonservice.bean.dto.UserDto;
+import cn.pri.smilly.commonservice.bean.vo.UserVo;
 import cn.pri.smilly.userservice.config.UserProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -24,12 +25,12 @@ public class UserController {
 
     @GetMapping("/info")
     public RestResult getUserInfo() {
-        User user = new User("N01", userPrp.getName(), userPrp.getIdentity(), userPrp.getAge(), userPrp.getSex());
+        UserVo user = userPrp.convert(UserVo.class);
         return RestResult.success(user);
     }
 
     @PostMapping("/save")
-    public RestResult saveUser(@RequestBody User user) {
+    public RestResult saveUser(@RequestBody UserDto user) {
         return RestResult.success(user);
     }
 

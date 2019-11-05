@@ -1,10 +1,10 @@
 spring:
   application:
-    name: @project.artifactId@
-    version: @project.version@
+    name: ${project.artifactId}
+    version: ${project.version}
 
   profiles:
-    active: @profileActive@
+    active: ${profile.active}
 
   security:
     user:
@@ -12,17 +12,17 @@ spring:
       password: ${ZIPKIN_SERVER_PASSWORD:zipkin}
 
   cloud:
-    config: # 从配置中心拉取配置文件
-      enabled: true
+    config: #从配置中心拉取配置文件，远程文件名格式 {app-name}-{profile}.yml
+      enabled: true #启用config配置
       fail-fast: true
-      uri: http://localhost:8888/
+      uri: http://${config.server.host}:${config.server.port}/ #配置中心地址
       username: ${CONFIG_SERVER_USERNAME:config}
       password: ${CONFIG_SERVER_PASSWORD:config}
       profile: ${spring.profiles.active}
-      label: master
+      label: master #从 master 分支拉取
       discovery:
         enable: true
-        service-id: config-server #Config Server端的服务名字，不能瞎写
+        service-id: ${config.server.name} #Config Server端的服务名字，不能瞎写
       retry: # 配置中心失败重试
         initial-interval: 2000 #最初重试间隔
         max-interval: 10000 #最长重试间隔
@@ -34,23 +34,22 @@ spring:
       trace:
         enabled: true
 
-  rabbitmq: # 配置消息总线
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+  rabbitmq: # 消息总线配置
+    host: ${rabbitmq.host}
+    port: ${rabbitmq.port}
+    username: ${rabbitmq.username}
+    password: ${rabbitmq.password}
 
-# 注册服务到注册中心
-eureka:
+eureka: # 注册服务到注册中心
   instance:
-    hostname: register-center
+    hostname: ${register.center.name}
     prefer-ip-address: true
     metadata-map:
-      user.name: ${srping.security.user.name}
-      user.password: ${srping.security.user.password}
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
   client:
     service-url:
-      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@localhost:8860/eureka/
+      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@${register.center.host}:${register.center.port}/eureka/
 
 zipkin:
   storage: # es 配置
@@ -58,16 +57,16 @@ zipkin:
     search-enabled: true
     type: elasticsearch
     elasticsearch:
-      hosts: http://localhost:9200
+      hosts: http://${elasticsearch.host}:${elasticsearch.port}
       index: zipkin
       index-shards: 5
       index-replicas: 1
   collector: # rabbitmq collector 配置
     rabbitmq:
       enabled: true
-      addresses: localhost:5672
-      username: guest
-      password: guest
+      addresses: ${rabbitmq.host}:${rabbitmq.port}
+      username: ${rabbitmq.username}
+      password: ${rabbitmq.password}
       queue: zipkin
 
 management:

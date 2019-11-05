@@ -2,32 +2,36 @@ server:
   port: 8888
 
 spring:
+  application:
+    name: ${project.artifactId}
+    version: ${project.version}
+
   profiles:
-    active: @profileActive@
-
-  cloud:
-    config:
-      server:
-        git: # 配置中心文件位置
-          uri: https://github.com/20087843/spring-cloud-demo
-          search-paths: config-repo # 文件基路径
-          force-pull: true #强制拉取
-          delete-untracked-branches: true #删除无关分支
-
-  rabbitmq: # 消息总线配置
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    active: ${profile.active}
 
   security:
     user:
       name: ${CONFIG_SERVER_USERNAME:config}
       password: ${CONFIG_SERVER_PASSWORD:config}
 
+  cloud:
+    config:
+      server:
+        git: # 配置中心文件位置
+          uri: ${config.server.url}
+          search-paths: ${config.server.path} # 文件基路径
+          force-pull: true #强制拉取
+          delete-untracked-branches: true #删除无关分支
+
+  rabbitmq: # 消息总线配置
+    host: ${rabbitmq.host}
+    port: ${rabbitmq.port}
+    username: ${rabbitmq.username}
+    password: ${rabbitmq.password}
+
 eureka: # 向注册中心注册
   instance:
-    hostname: register-center
+    hostname: ${register.center.name}
     prefer-ip-address: true
     metadata-map:
       user.name:  ${spring.security.user.name}
@@ -35,7 +39,7 @@ eureka: # 向注册中心注册
   client:
     fetch-registry: true # 从eureka服务器获取eureka注册表信息
     service-url:
-      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@localhost:8860/eureka/
+      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@${register.center.host}:${register.center.port}/eureka/
 
 management:
   endpoints:
