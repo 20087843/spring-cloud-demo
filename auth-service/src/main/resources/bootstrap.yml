@@ -11,8 +11,6 @@ spring:
       enabled: true #启用config配置
       fail-fast: true
       uri: http://${config.server.host}:${config.server.port}/ #配置中心地址
-      username: ${CONFIG_SERVER_USERNAME:config}
-      password: ${CONFIG_SERVER_PASSWORD:config}
       profile: ${spring.profiles.active}
       label: master #从 master 分支拉取
       discovery:
@@ -33,13 +31,12 @@ spring:
 
   jpa:
     show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
 
   datasource:
-    url: jdbc:mysql://localhost:3306/spring_cloud_demo?useUnicode=true&characterEncoding=utf-8&serverTimeZone=GMT
+    url: jdbc:mysql://localhost:3306/spring_cloud_demo?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
     username: smilly
     password: smilly
-    druid:
-      driver-class-name: com.mysql.jdbc.Driver
 
   redis:
     host: 127.0.0.1
@@ -49,28 +46,15 @@ spring:
 # 注册服务到注册中心
 eureka:
   instance:
-    hostname: ${register.center.name}
+    hostname: ${registry.server.name}
     prefer-ip-address: true
-    health-check-url-path: ${server.context-path}${management.context-path}/health
-    status-page-url-path: ${server.context-path}${management.context-path}/info
-    metadata-map:
-      user.name: ${spring.security.user.name}
-      user.password: ${spring.security.user.password}
-      management.context-path: ${server.context-path}${management.context-path}
   client:
     service-url:
-      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@${register.center.host}:${register.center.port}/eureka/
+      defaultZone: http://${registry.server.host}:${registry.server.port}/eureka/
 
 management:
   endpoints:
     web:
       exposure:
         include: '*'
-    health:
-      show-details: ALWAYS
-  server:
-    servlet:
-      context-path: /
-    ssl:
-      enabled: false
 

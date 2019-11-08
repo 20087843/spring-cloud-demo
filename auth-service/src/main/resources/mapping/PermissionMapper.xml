@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.pri.smilly.authservice.mapper.PermissionMapper">
+    <sql id="Base_Column_List">
+        id,
+        code,
+        pCode,
+        pId,
+        name,
+        url,
+        isMenu,
+        level,
+        sort,
+        status,
+        icon,
+        createTime,
+        updateTime
+    </sql>
+
+    <select id="getRolePermission" parameterType="java.lang.Integer"
+            resultType="cn.pri.smilly.commonservice.bean.po.MenuPo">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_menu
+        right join sys_privilege on sys_menu.id = sys_privilege.munu_id
+        where sys_privilege.role_id = #{roleId,jdbcType=BIGINT}
+    </select>
+
+</mapper>

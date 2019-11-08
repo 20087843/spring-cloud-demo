@@ -6,25 +6,11 @@ spring:
   profiles:
     active: ${profile.active}
 
-  security:
-    user:
-      name: ${PRODUCT_SERVICE_USERNAME:product}
-      password: ${PRODUCT_SERVICE_PASSWORD:product}
-    oauth2:
-      client:
-        clientId: ${spring.application.name}
-        clientSecret: ${spring.security.user.password}
-        accessTokenUri: http://${auth.service.host}:${auth.service.port}${auth.service.root}/oauth/token
-        grant-type: client_credentials
-        scope: server
-
   cloud:
     config: #从配置中心拉取配置文件，远程文件名格式 {app-name}-{profile}.yml
       enabled: true #启用config配置
       fail-fast: true
       uri: http://${config.server.host}:${config.server.port}/ #配置中心地址
-      username: ${CONFIG_SERVER_USERNAME:config}
-      password: ${CONFIG_SERVER_PASSWORD:config}
       profile: ${spring.profiles.active}
       label: master #从 master 分支拉取
       discovery:
@@ -93,22 +79,17 @@ feign:  #feign的配置
 
 eureka: # 注册服务到注册中心
   instance:
-    hostname: ${register.center.name}
+    hostname: ${registry.server.name}
     prefer-ip-address: true
     metadata-map:
       user.name: ${spring.security.user.name}
       user.password: ${spring.security.user.password}
   client:
     service-url:
-      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@${register.center.host}:${register.center.port}/eureka/
+      defaultZone: http://${registry.server.host}:${register.center.port}/eureka/
 
 management:
   endpoints:
     web:
       exposure:
         include: '*'
-    health:
-      show-details: ALWAYS
-  server:
-    servlet:
-      context-path: /

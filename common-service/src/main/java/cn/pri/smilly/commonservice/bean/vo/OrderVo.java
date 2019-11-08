@@ -10,6 +10,6 @@ import java.util.List;
 @Setter
 public class OrderVo extends BaseBean {
     private String id;
-    private User user;
+    private UserVo user;
     private List<GoodsVo> goodsList;
 }

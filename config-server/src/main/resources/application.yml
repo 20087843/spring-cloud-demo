@@ -9,11 +9,6 @@ spring:
   profiles:
     active: ${profile.active}
 
-  security:
-    user:
-      name: ${CONFIG_SERVER_USERNAME:config}
-      password: ${CONFIG_SERVER_PASSWORD:config}
-
   cloud:
     config:
       server:
@@ -31,15 +26,12 @@ spring:
 
 eureka: # 向注册中心注册
   instance:
-    hostname: ${register.center.name}
+    hostname: ${registry.server.name}
     prefer-ip-address: true
-    metadata-map:
-      user.name:  ${spring.security.user.name}
-      user.password: ${spring.security.user.password}
   client:
     fetch-registry: true # 从eureka服务器获取eureka注册表信息
     service-url:
-      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@${register.center.host}:${register.center.port}/eureka/
+      defaultZone: http://${registry.server.host}:${registry.server.port}/eureka/
 
 management:
   endpoints:

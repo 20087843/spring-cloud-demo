@@ -5,21 +5,30 @@
 
     <parent>
         <groupId>cn.pri.smilly</groupId>
-        <artifactId>gateway-services</artifactId>
+        <artifactId>registry-server</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <groupId>cn.pri.smilly</groupId>
-    <artifactId>gateway-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>eureka-server</artifactId>
+    <version>${project.parent.version}</version>
     <name>${project.artifactId}</name>
     <description>Demo project for Spring Cloud</description>
     <packaging>jar</packaging>
 
     <dependencies>
-        <dependency>
+        <dependency><!-- 注册服务 -->
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        </dependency>
+        <dependency><!--监控客户端-->
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>${spring-boot-admin.version}</version>
+        </dependency>
+        <dependency><!--消息总线-->
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
         </dependency>
     </dependencies>
 

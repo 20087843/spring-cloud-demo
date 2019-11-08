@@ -6,18 +6,11 @@ spring:
   profiles:
     active: ${profile.active}
 
-  security:
-    user:
-      name: ${GATEWAY_SERVICE_USERNAME:gateway}
-      password: ${GATEWAY_SERVICE_PASSWORD:gateway}
-
   cloud:
     config: #从配置中心拉取配置文件，远程文件名格式 {app-name}-{profile}.yml
       enabled: true #启用config配置
       fail-fast: true
       uri: http://${config.server.host}:${config.server.port}/ #配置中心地址
-      username: ${CONFIG_SERVER_USERNAME:config}
-      password: ${CONFIG_SERVER_PASSWORD:config}
       profile: ${spring.profiles.active}
       label: master #从 master 分支拉取
       discovery:
@@ -46,16 +39,33 @@ spring:
     username: ${rabbitmq.username}
     password: ${rabbitmq.password}
 
+  zipkin:
+    enabled: true # 启用 Zipkin 链路追踪
+    locator:
+      discovery:
+        enabled: true  # 通过注册中心发现服务 ID
+    compression:
+      enabled: true # 压缩数据
+    sender:
+      type: rabbit
+    rabbitmq:
+      topic: zipkin
+
+  sleuth:
+    enabled: true
+    sampler:
+      probability: 1.0
+    web:
+      client:
+        enabled: true
+
 eureka: # 注册服务到注册中心
   instance:
-    hostname: ${register.center.name}
+    hostname: ${registry.server.name}
     prefer-ip-address: true
-    metadata-map:
-      user.name: ${spring.security.user.name}
-      user.password: ${spring.security.user.password}
   client:
     service-url:
-      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@${register.center.host}:${register.center.port}/eureka/
+      defaultZone: http://${registry.server.host}:${registry.server.port}/eureka/
 
 management:
   endpoints:

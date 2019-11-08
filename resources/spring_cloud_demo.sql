@@ -93,7 +93,7 @@ CREATE TABLE `oauth_client_details` (
 -- Records of oauth_client_details
 -- ----------------------------
 INSERT INTO `oauth_client_details` VALUES ('app', null, 'app', 'app', 'password,refresh_token', null, null, null, null, null, null);
-INSERT INTO `oauth_client_details` VALUES ('webApp', null, '$2a$10$cKRbR9IJktfmKmf/wShyo.5.J8IxO/7YVn8twuWFtvPgruAF8gtKq', 'app', 'authorization_code,password,refresh_token,client_credentials', null, null, null, null, null, null);
+INSERT INTO `oauth_client_details` VALUES ('web', null, 'web', 'app', 'authorization_code,password,refresh_token,client_credentials', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for oauth_client_token

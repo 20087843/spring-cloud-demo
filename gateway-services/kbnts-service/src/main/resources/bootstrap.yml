@@ -16,8 +16,8 @@ spring:
       enabled: true #启用config配置
       fail-fast: true
       uri: http://${config.server.host}:${config.server.port}/ #配置中心地址
-      username: ${CONFIG_SERVER_USERNAME:config}
-      password: ${CONFIG_SERVER_PASSWORD:config}
+      username: ${config.server.username}
+        password: ${config.server.password}
       profile: ${spring.profiles.active}
       label: master #从 master 分支拉取
       discovery:
@@ -63,14 +63,14 @@ spring:
 
 eureka: # 注册服务到注册中心
   instance:
-    hostname: ${register.center.name}
+    hostname: ${registry.server.name}
     prefer-ip-address: true
     metadata-map:
       user.name: ${spring.security.user.name}
       user.password: ${spring.security.user.password}
   client:
     service-url:
-      defaultZone: http://${REGISTER_CENTER_USERNAME:register}:${REGISTER_CENTER_PASSWORD:register}@${register.center.host}:${register.center.port}/eureka/
+      defaultZone: http://${registry.server.username}:${registry.server.password}@${registry.server.host}:${registry.server.port}/eureka/
 
 ribbon:
   eureka:

@@ -19,12 +19,12 @@
     <modules>
         <module>common-service</module>
         <module>config-server</module>
-        <module>register-center</module>
         <module>monitor-center</module>
         <module>gateway-services</module>
         <module>zipkin-server</module>
         <module>auth-service</module>
         <module>custom-services</module>
+        <module>registry-server</module>
     </modules>
 
     <properties>
@@ -41,6 +41,7 @@
         <fastjson.version>1.2.59</fastjson.version>
         <swagger.version>2.9.2</swagger.version>
         <jwt.version>0.9.0</jwt.version>
+        <mybatis.starter.version>2.0.1</mybatis.starter.version>
     </properties>
 
     <profiles>
@@ -59,9 +60,13 @@
                 <config.server.path>config-repo</config.server.path>
                 <config.server.host>localhost</config.server.host>
                 <config.server.port>8888</config.server.port>
-                <register.center.name>register-center</register.center.name>
-                <register.center.host>localhost</register.center.host>
-                <register.center.port>8860</register.center.port>
+                <config.server.username>config</config.server.username>
+                <config.server.password>config</config.server.password>
+                <registry.server.name>eureka-server</registry.server.name>
+                <registry.server.host>localhost</registry.server.host>
+                <registry.server.port>8860</registry.server.port>
+                <registry.server.username>registry</registry.server.username>
+                <registry.server.password>registry</registry.server.password>
                 <rabbitmq.host>localhost</rabbitmq.host>
                 <rabbitmq.port>5672</rabbitmq.port>
                 <rabbitmq.username>guest</rabbitmq.username>
@@ -82,9 +87,13 @@
                 <config.server.path>config-repo</config.server.path>
                 <config.server.host>localhost</config.server.host>
                 <config.server.port>8888</config.server.port>
-                <register.center.name>register-center</register.center.name>
-                <register.center.host>localhost</register.center.host>
-                <register.center.port>8860</register.center.port>
+                <config.server.username>config</config.server.username>
+                <config.server.password>config</config.server.password>
+                <registry.server.name>eureka-server</registry.server.name>
+                <registry.server.host>localhost</registry.server.host>
+                <registry.server.port>8860</registry.server.port>
+                <registry.server.username>registry</registry.server.username>
+                <registry.server.password>registry</registry.server.password>
                 <rabbitmq.host>localhost</rabbitmq.host>
                 <rabbitmq.port>5672</rabbitmq.port>
                 <rabbitmq.username>guest</rabbitmq.username>
@@ -106,9 +115,13 @@
                 <config.server.path>config-repo</config.server.path>
                 <config.server.host>localhost</config.server.host>
                 <config.server.port>8888</config.server.port>
-                <register.center.name>register-center</register.center.name>
-                <register.center.host>localhost</register.center.host>
-                <register.center.port>8860</register.center.port>
+                <config.server.username>config</config.server.username>
+                <config.server.password>config</config.server.password>
+                <registry.server.name>eureka-server</registry.server.name>
+                <registry.server.host>localhost</registry.server.host>
+                <registry.server.port>8860</registry.server.port>
+                <registry.server.username>registry</registry.server.username>
+                <registry.server.password>registry</registry.server.password>
                 <rabbitmq.host>localhost</rabbitmq.host>
                 <rabbitmq.port>5672</rabbitmq.port>
                 <rabbitmq.username>guest</rabbitmq.username>
@@ -189,6 +202,11 @@
                 <artifactId>zipkin-autoconfigure-storage-elasticsearch-http</artifactId>
                 <version>${zipkin.es.version}</version>
             </dependency>
+            <dependency> <!-- mybatis -->
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.starter.version}</version>
+            </dependency>
             <dependency><!--swagger-->
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger2</artifactId>
@@ -242,9 +260,15 @@
 
     <repositories>
         <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
+            <id>alimaven</id>
+            <name>aliyun maven</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
 </project>

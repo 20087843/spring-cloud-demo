@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.pri.smilly.authservice.mapper.UserMapper">
+    <sql id="Base_Column_List">
+        id,
+        avatar,
+        username,
+        password,
+        salt,
+        name,
+        birthday,
+        sex,
+        email,
+        phone,
+        status,
+        createTime,
+        updateTime
+    </sql>
+
+    <select id="findByUsername" parameterType="java.lang.String" resultType="cn.pri.smilly.commonservice.bean.po.UserPo" >
+        select <include refid="Base_Column_List"/> from sys_user where username = #{username,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

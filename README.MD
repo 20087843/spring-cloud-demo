@@ -90,6 +90,7 @@ a demo of spring cloud with version Greenwich.SR3, include config, registry, mon
 4. [spring-cloud-samples/brewery](https://github.com/spring-cloud-samples/brewery)
 5. [hope-for/hope-cloud](https://github.com/hope-for/hope-cloud)
 6. [wsm1217395196/my-study](https://github.com/wsm1217395196/my-study)
+7. [babylikebird/Micro-Service-Skeleton](https://github.com/babylikebird/Micro-Service-Skeleton/blob/v2.0)
 
 
 
