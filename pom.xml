@@ -62,8 +62,6 @@
                 <config.server.password>config</config.server.password>
                 <config.server.rsc.url>https://github.com/20087843/spring-cloud-demo.git</config.server.rsc.url>
                 <config.server.rsc.path>config-repo</config.server.rsc.path>
-                <config.server.rsc.username>20087843@163com</config.server.rsc.username>
-                <config.server.rsc.password>54136314@ln</config.server.rsc.password>
                 <registry.server.name>eureka-server</registry.server.name>
                 <registry.server.host>localhost</registry.server.host>
                 <registry.server.port>8860</registry.server.port>

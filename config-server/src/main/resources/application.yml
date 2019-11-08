@@ -15,8 +15,6 @@ spring:
         git: # 配置中心文件位置
           uri: ${config.server.rsc.url}
           search-paths: ${config.server.rsc.path} # 文件基路径
-          username: ${config.server.rsc.username}
-          password: ${config.server.rsc.password}
           force-pull: true #强制拉取
           delete-untracked-branches: true #删除无关分支
 
