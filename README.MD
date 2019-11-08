@@ -15,17 +15,22 @@ a demo of spring cloud with version Greenwich.SR3, include config, registry, mon
     - config client
     - cloud bus:rabitmq
     - elasticsearch(<6.0.0 版本)
-3. register-center(8860) 服务注册中心
-    - eureka server
-      - ribbon
-      - archaius
+3. registry-server(8860) 服务注册中心
+    1. eureka-server
+        - eureka server
+            - ribbon
+            - archaius
+    2. nacos-server (未完成)
 4. monitor-center(8870) 应用监控中心
     - spring boot admin
     - eureka client
     - config client
         - cloud bus:rabitmq
-5. gateway-service/zuul-service(8810) 应用网关服务
-6. auth-service(8820) 安全权限服务
+5. gateway-services(8810) 应用网关服务
+    1. zuul-service
+    2. gateway-service
+    3. kbnts-service (未完成)
+6. auth-service(8820) 安全权限服务 (测试中)
 7. custom-services 应用服务
     1. common-service 应用服务通用组件
     2. user-service(8080) 客户应用服务
@@ -37,6 +42,7 @@ a demo of spring cloud with version Greenwich.SR3, include config, registry, mon
            - cloud bus:rabitmq
        - eureka client
        - feign
+    4. product-service(8082) 商品应用服务 (未完成)
 8. config-repo 配置文件仓库
 9. project-notes 项目笔记
 
@@ -46,6 +52,7 @@ a demo of spring cloud with version Greenwich.SR3, include config, registry, mon
     - 安装 jdk11 以上版本
     - [安装 rabbitmq](project-notes/RabbitMq Install.MD) 
     - 安装 elasticsearch 6.0.0 以下版本([ES 镜像](https://thans.cn/mirror/elasticsearch.html), 下载 zip 包，开箱即用) 
+    - 安装 redis
 2. 按顺序启动项目
     - register-center
     - config-server
